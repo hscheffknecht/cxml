@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE cXML SYSTEM "http://xml.cxml.org/schemas/cXML/1.2.040/cXML.dtd">
+<cXML payloadID="1539050765.0492@example.com" timestamp="2018-10-09T02:06:05+00:00">
+    <Header>
+        <From>
+            <Credential domain="NetworkId">
+                <Identity>buyer</Identity>
+            </Credential>
+        </From>
+        <To>
+            <Credential domain="DUNS">
+                <Identity>acme</Identity>
+            </Credential>
+        </To>
+        <Sender>
+            <Credential domain="NetworkId">
+                <Identity>buyer</Identity>
+                <SharedSecret>jd8je3$ndP</SharedSecret>
+            </Credential>
+            <UserAgent>Application Name v1.2.3</UserAgent>
+        </Sender>
+    </Header>
+    <Request deploymentMode="production">
+        <PunchOutSetupRequest operation="create">
+            <BuyerCookie>550bce3e592023b2e7b015307f965133</BuyerCookie>
+            <Extrinsic name="UserEmail">jdoe@example.com</Extrinsic>
+            <Extrinsic name="FirstName">John</Extrinsic>
+            <Extrinsic name="LastName">Doe</Extrinsic>
+            <Extrinsic name="PhoneNumber">555-555-5555</Extrinsic>
+            <BrowserFormPost>
+                <URL>https://example.com/cxml_cart</URL>
+            </BrowserFormPost>
+            <ShipTo>
+                <Address addressID="TEST">
+                    <Name xml:lang="en">My Address</Name>
+                    <PostalAddress>
+                        <Street>123 Street Address</Street>
+                        <City>Mountain View</City>
+                        <State>CA</State>
+                        <PostalCode>94040</PostalCode>
+                        <Country isoCountryCode="US">US</Country>
+                    </PostalAddress>
+                </Address>
+            </ShipTo>
+        </PunchOutSetupRequest>
+    </Request>
+</cXML>

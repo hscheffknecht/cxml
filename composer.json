@@ -1,0 +1,20 @@
+{
+    "name": "herbert/cxml",
+    "description": "A PHP library to handle cXML punchout orders",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Herbert Scheffknecht",
+            "email": "herbert@xoo.cc"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "CXml\\": "src/CXml/"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.4"
+    }
+}
