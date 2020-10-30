@@ -2,8 +2,8 @@
 
 namespace CXml;
 
-use CXml\Models\RequestInterface;
 use CXml\Models\Requests\PunchOutSetupRequest;
+use CXml\Models\Requests\RequestInterface;
 
 class RequestFactory
 {

@@ -3,6 +3,7 @@
 namespace CXml;
 
 use CXml\Models\CXml;
+use CXml\Models\Header;
 
 class CXmlParser
 {
@@ -13,7 +14,9 @@ class CXmlParser
         $cXml = new CXml();
 
         // Header
-        $cXml->getHeader()->parse($xml->xpath('Header')[0]);
+        $header = new Header();
+        $header->parse($xml->xpath('Header')[0]);
+        $cXml->setHeader($header);
 
         // Requests
         $factory = new RequestFactory();

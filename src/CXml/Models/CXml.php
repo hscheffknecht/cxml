@@ -2,23 +2,40 @@
 
 namespace CXml\Models;
 
+use CXml\Models\Requests\RequestInterface;
+use CXml\Models\Responses\ResponseInterface;
+
 class CXml
 {
     /** @var Header */
     private $header;
 
     /** @var RequestInterface[] */
-    private $requests;
+    private $requests = [];
+
+    /** @var ResponseInterface[]; */
+    private $responses = [];
+
+    /** @var string */
+    private $payloadId;
+
+    /** @var \DateTime */
+    private $timestamp;
 
     public function __construct()
     {
-        $this->header = new Header();
-        $this->requests = [];
+        $this->timestamp = new \DateTime();
     }
 
     public function getHeader(): Header
     {
         return $this->header;
+    }
+
+    public function setHeader(Header $header): self
+    {
+        $this->header = $header;
+        return $this;
     }
 
     public function getRequests(): array
@@ -35,6 +52,78 @@ class CXml
     public function addRequest(RequestInterface $request) : self
     {
         $this->requests[] = $request;
+        return $this;
+    }
+
+    public function getResponses(): array
+    {
+        return $this->responses;
+    }
+
+    public function setResponses(array $responses): self
+    {
+        $this->responses = $responses;
+        return $this;
+    }
+
+    public function addResponse(ResponseInterface $response)
+    {
+        $this->responses[] = $response;
+    }
+
+    /** @noinspection PhpUndefinedFieldInspection */
+    public function render() : string
+    {
+        $xmlData = <<<XML
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE cXML SYSTEM "http://xml.cXML.org/schemas/cXML/1.2.040/cXML.dtd">
+<cXML payloadID="" timestamp="">
+    <Response />
+</cXML>
+XML;
+
+        // Envelope
+        $xml = new \SimpleXMLElement($xmlData);
+        $xml->attributes()->payloadID = $this->payloadId;
+        $xml->attributes()->timestamp = $this->timestamp->format('c');
+
+        // Responses
+        foreach ($this->responses as $response) {
+            $response->render($xml->xpath('Response')[0]);
+        }
+
+        return $xml->asXML();
+    }
+
+    public function createPayloadId() : string
+    {
+        return sprintf(
+            '%d.%d@%s',
+            time(),
+            rand(0, 9999),
+            gethostname()
+        );
+    }
+
+    public function getPayloadId(): string
+    {
+        return $this->payloadId;
+    }
+
+    public function setPayloadId(string $payloadId): self
+    {
+        $this->payloadId = $payloadId;
+        return $this;
+    }
+
+    public function getTimestamp(): \DateTime
+    {
+        return $this->timestamp;
+    }
+
+    public function setTimestamp(\DateTime $timestamp): self
+    {
+        $this->timestamp = $timestamp;
         return $this;
     }
 }

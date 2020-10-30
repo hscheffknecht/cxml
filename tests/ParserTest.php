@@ -3,16 +3,16 @@
 use CXml\CXmlParser;
 use CXml\Models\CXml;
 use CXml\Models\Header;
-use CXml\Models\RequestInterface;
 use CXml\Models\Requests\PunchOutSetupRequest;
+use CXml\Models\Requests\RequestInterface;
 use PHPUnit\Framework\TestCase;
 
 class ParserTest extends TestCase
 {
-    public function testParsingOfSampleXmlFile()
+    public function testParsingOfSamplePunchOutSetupRequest()
     {
         $parser = new CXmlParser();
-        $cXml = $parser->parse(file_get_contents(__DIR__ . '/' . 'sample-request.xml'));
+        $cXml = $parser->parse(file_get_contents(__DIR__ . '/' . 'sample-PunchOutSetupRequest.xml'));
 
         // Check result class
         self::assertInstanceOf(CXml::class, $cXml);
@@ -33,6 +33,5 @@ class ParserTest extends TestCase
         self::assertInstanceOf(PunchOutSetupRequest::class, $request);
         self::assertSame('550bce3e592023b2e7b015307f965133', $request->getBuyerCookie());
         self::assertSame('https://example.com/cxml_cart', $request->getBrowserFormPostUrl());
-
     }
 }

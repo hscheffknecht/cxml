@@ -1,6 +1,6 @@
 <?php
 
-namespace CXml\Models;
+namespace CXml\Models\Requests;
 
 interface RequestInterface
 {

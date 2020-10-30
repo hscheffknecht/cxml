@@ -2,8 +2,6 @@
 
 namespace CXml\Models\Requests;
 
-use CXml\Models\RequestInterface;
-
 class PunchOutSetupRequest implements RequestInterface
 {
     /** @var string|null */
