@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE cXML SYSTEM "http://xml.cXML.org/schemas/cXML/1.2.040/cXML.dtd">
 <cXML payloadID="1539050765.83749@example.com" timestamp="2018-04-07T16:16:53-05:00">
-    <Response><Status code="200" text="OK"/><PunchOutSetupResponse><StartPage><URL>https://www.example.com/punchout?sid=76857247543634381</URL></StartPage></PunchOutSetupResponse></Response>
+  <Response>
+    <Status code="200" text="OK"/>
+    <PunchOutSetupResponse>
+      <StartPage>
+        <URL>https://www.example.com/punchout?sid=76857247543634381</URL>
+      </StartPage>
+    </PunchOutSetupResponse>
+  </Response>
 </cXML>

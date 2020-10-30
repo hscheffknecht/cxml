@@ -2,6 +2,7 @@
 
 namespace CXml\Models;
 
+use CXml\Models\Messages\MessageInterface;
 use CXml\Models\Requests\RequestInterface;
 use CXml\Models\Responses\ResponseInterface;
 
@@ -12,6 +13,9 @@ class CXml
 
     /** @var RequestInterface[] */
     private $requests = [];
+
+    /** @var MessageInterface[] */
+    private $messages = [];
 
     /** @var ResponseInterface[]; */
     private $responses = [];
@@ -55,6 +59,23 @@ class CXml
         return $this;
     }
 
+    public function getMessages(): array
+    {
+        return $this->messages;
+    }
+
+    public function setMessages(array $messages): self
+    {
+        $this->messages = $messages;
+        return $this;
+    }
+
+    public function addMessage(MessageInterface $message) : self
+    {
+        $this->messages[] = $message;
+        return $this;
+    }
+
     public function getResponses(): array
     {
         return $this->responses;
@@ -77,9 +98,7 @@ class CXml
         $xmlData = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE cXML SYSTEM "http://xml.cXML.org/schemas/cXML/1.2.040/cXML.dtd">
-<cXML payloadID="" timestamp="">
-    <Response />
-</cXML>
+<cXML payloadID="" timestamp="" />
 XML;
 
         // Envelope
@@ -87,9 +106,22 @@ XML;
         $xml->attributes()->payloadID = $this->payloadId;
         $xml->attributes()->timestamp = $this->timestamp->format('c');
 
+        // Messages
+        if (!empty($this->messages)) {
+            $messageChild = $xml->addChild('Message');
+
+            foreach ($this->messages as $message) {
+                $message->render($messageChild);
+            }
+        }
+
         // Responses
-        foreach ($this->responses as $response) {
-            $response->render($xml->xpath('Response')[0]);
+        if (!empty($this->responses)) {
+            $responseChild = $xml->addChild('Response');
+
+            foreach ($this->responses as $response) {
+                $response->render($responseChild);
+            }
         }
 
         return $xml->asXML();
