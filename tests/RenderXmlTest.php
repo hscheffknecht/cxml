@@ -30,6 +30,7 @@ class RenderXmlTest extends TestCase
     public function testRenderingOfSamplePunchOutOrderMessage() : void
     {
         $cXml = $this->getEnvelope();
+        $cXml->setHeader(new \CXml\Models\Header());
 
         // Message
         $message = (new PunchOutOrderMessage())

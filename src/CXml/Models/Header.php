@@ -2,6 +2,8 @@
 
 namespace CXml\Models;
 
+use CXml\Models\Responses\ResponseInterface;
+
 class Header
 {
     private $senderIdentity;
@@ -33,5 +35,27 @@ class Header
     {
         $this->senderIdentity = (string)$headerXml->xpath('Sender/Credential/Identity')[0];
         $this->senderSharedSecret = (string)$headerXml->xpath('Sender/Credential/SharedSecret')[0];
+    }
+
+    public function render(\SimpleXMLElement $parentNode) : void
+    {
+        $headerNode = $parentNode->addChild('Header');
+
+        $this->addNode($headerNode, 'From', 'Unknown');
+        $this->addNode($headerNode, 'To', 'Unknown');
+        $this->addNode($headerNode, 'Sender', $this->getSenderIdentity() ?? 'Unknown')
+            ->addChild('UserAgent', 'Unknown');
+    }
+
+    private function addNode(\SimpleXMLElement $parentNode, string $nodeName, string $identity) : \SimpleXMLElement
+    {
+        $node = $parentNode->addChild($nodeName);
+
+        $credentialNode = $node->addChild('Credential');
+        $credentialNode->addAttribute('domain', '');
+
+        $credentialNode->addChild('Identity', $identity);
+
+        return $node;
     }
 }

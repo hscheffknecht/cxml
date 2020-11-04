@@ -31,7 +31,7 @@ class CXml
         $this->timestamp = new \DateTime();
     }
 
-    public function getHeader(): Header
+    public function getHeader(): ?Header
     {
         return $this->header;
     }
@@ -105,6 +105,11 @@ XML;
         $xml = new \SimpleXMLElement($xmlData);
         $xml->attributes()->payloadID = $this->payloadId;
         $xml->attributes()->timestamp = $this->timestamp->format('c');
+
+        // Header
+        if ($this->header) {
+            $this->header->render($xml);
+        }
 
         // Messages
         if (!empty($this->messages)) {
