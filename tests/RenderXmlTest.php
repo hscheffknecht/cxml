@@ -58,7 +58,8 @@ class RenderXmlTest extends TestCase
             ->setClassificationDomain('UNSPSC')
             ->setClassification('41106104')
             ->setManufacturerName('Manufacturer X')
-            ->setManufacturerPartId('MFPART-1');
+            ->setManufacturerPartId('MFPART-1')
+            ->setLeadTime(14);
         $message->addItem($item);
 
         // Render

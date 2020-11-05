@@ -48,6 +48,7 @@
           <Classification domain="UNSPSC">41106104</Classification>
           <ManufacturerPartID>MFPART-1</ManufacturerPartID>
           <ManufacturerName>Manufacturer X</ManufacturerName>
+          <LeadTime>14</LeadTime>
         </ItemDetail>
       </ItemIn>
     </PunchOutOrderMessage>

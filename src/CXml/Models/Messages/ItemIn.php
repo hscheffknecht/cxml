@@ -31,6 +31,9 @@ class ItemIn
     /** @var string */
     private $manufacturerName;
 
+    /** @var int|null */
+    private $leadTime;
+
     public function getQuantity(): int
     {
         return $this->quantity;
@@ -160,10 +163,26 @@ class ItemIn
         // Manufacturer
         $itemDetailsNode->addChild('ManufacturerPartID', $this->manufacturerPartId);
         $itemDetailsNode->addChild('ManufacturerName', $this->manufacturerName);
+
+        // LeadTime
+        if ($this->leadTime !== null) {
+            $itemDetailsNode->addChild('LeadTime', $this->leadTime);
+        }
     }
 
     private function formatPrice(float $price)
     {
         return number_format($price, 2, '.', '');
+    }
+
+    public function getLeadTime(): ?int
+    {
+        return $this->leadTime;
+    }
+
+    public function setLeadTime(?int $leadTime): self
+    {
+        $this->leadTime = $leadTime;
+        return $this;
     }
 }
