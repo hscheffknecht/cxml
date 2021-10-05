@@ -16,7 +16,7 @@ class PunchOutSetupRequest implements RequestInterface
     /** @noinspection PhpUndefinedFieldInspection */
     public function parse(\SimpleXMLElement $requestNode): void
     {
-        $this->buyerCookie = (string)$requestNode->attributes()->operation;
+        $this->operation = (string)$requestNode->attributes()->operation;
         $this->buyerCookie = $requestNode->xpath('BuyerCookie')[0];
         $this->browserFormPostUrl = $requestNode->xpath('BrowserFormPost/URL')[0];
     }
