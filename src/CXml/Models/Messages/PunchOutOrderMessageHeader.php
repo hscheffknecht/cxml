@@ -20,10 +20,9 @@ class PunchOutOrderMessageHeader
 
     /** @var string */
     private $taxDescription;
-    /**
-     * @var string
-     */
-    private $operationAllowed;
+
+    /** @var string */
+    private $operationAllowed = "create";
 
     public function getTotalAmount(): float
     {
