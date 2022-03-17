@@ -21,6 +21,9 @@ class PunchOutOrderMessageHeader
     /** @var string */
     private $taxDescription;
 
+    /** @var string */
+    private $operationAllowed = "create";
+
     public function getTotalAmount(): float
     {
         return $this->totalAmount;
@@ -76,10 +79,16 @@ class PunchOutOrderMessageHeader
         return $this;
     }
 
+    public function setOperationAllowed(string $operation): self
+    {
+        $this->operationAllowed = $operation;
+        return $this;
+    }
+
     public function render(\SimpleXMLElement $parentNode, string $currency, string $locale): void
     {
         $node = $parentNode->addChild('PunchOutOrderMessageHeader');
-        $node->addAttribute('operationAllowed', 'create');
+        $node->addAttribute('operationAllowed', $this->operationAllowed);
 
         // Total
         $this->addPriceNode($node, 'Total', $currency, $this->totalAmount);
